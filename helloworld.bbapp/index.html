@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<script src="jquery.js"></script>
+<script src="underscore.js"></script>
+<script src="backbone.js"></script>
+<script>
+/* This is the simplest Backbone.js program I could write.  It just displays 'hello world' on the page; 
+something you could get with a 1-line HTML file.  So, obviously there must be some other benefit to using backbone.
+
+BB has several other classes, but these are vital:
+- Router is sortof the main control center
+- View is any rectangle on the screen that you have to pump HTML or any changing data into.
+
+Up until recently, your JS made web pages change by showing and hiding pieces of HTML.
+And you construct that HTML into the HTML file, with all of the css display properties set to 'none'
+
+The backbone approach is instead to generate the HTML for whatever you need to show.  Each view has
+an empty element in the HTML that it fills with the generated HTML.  Usually it's easier 
+if your JS fills in some sort of template for this html text, but that's not needed.
+
+*/
+
+$(document).ready(function rdy()
+{
+  // as per jQuery, this runs after the page is set up, but other pieces 
+  // like images may not have fully downloaded.
+  
+  // you need a view so you can see something.  You need some existing element on the 
+  // page that will get filled with the content, that's el.
+  // Note that ContentView is merely the class of the view you're making;
+  // keep reading for instantiation.   
+  // extend() creates a duplicate of Backbone.View, and attaches the passed variables 
+  // to the prototype, so they become inherited instance variables of each constructed instance.
+  var ContentView = Backbone.View.extend({
+    el: $(document.body),
+  
+    // this is the code that you write that fills in the view's el with 'data' and html.
+    // In this case, the container is the whole body, and the data is a fixed  string.
+    render: function ()
+    {
+        this.el.html("hello world");
+        return this;
+    }
+  });
+  
+  // the router is mission control.  It uses the new History facilities in HTML5 that allow the user to 
+  // go back and forth between different URLs that actually point to states of this page.  In our case, there's one state.
+  // Again note that NavigationRouter is merely the class; it is created at the bottom, 
+  // with instance variables attached to the new constructor
+  var NavigationRouter = Backbone.Router.extend({
+    // routes calls handlers when certain events happen.  In our case, the only event happens when the page
+    // first loads, "*actions".  defaultRoute() will get called when that happens.
+    routes: {
+        "*actions": "defaultRoute"
+    },
+    
+    // called from the constructor for NavigationRouter, you write this function to kick it 
+    // all off and create your first few views.
+    initialize: function (options)
+    {
+      this.view = new ContentView({});          
+      return this;
+    },
+    
+    // called when page is loaded; calls content view to construct its content
+    defaultRoute: function (actions)
+    {
+        this.view.render();
+    }
+  });
+  
+  var navigationRouter = new NavigationRouter;
+  Backbone.history.start();
+});
+
+</script>
+
+<body>
+</body>

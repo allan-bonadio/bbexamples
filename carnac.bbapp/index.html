@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Carnac the Magnificent riddles</title>
+    <script src="jquery.js" type="text/javascript"></script>
+    <script src="underscore.js" type="text/javascript"></script>
+    <script src="backbone.js" type="text/javascript"></script>
+    
+    <style>
+    #the_menu
+    {
+        float: left;
+        width: 202px;
+        color: White;
+    }
+    #the_content
+    {
+        float: left;
+        width: 402px;
+
+        padding: 5px;
+        min-height: 144px;
+        border: 1px solid #ddd;
+        margin-left: -3px;
+    }
+    .menu-item
+    {
+        border: 1px solid #ddd;
+        width: 178px;
+        height: 18px;
+        padding: 10px;
+        margin-bottom: -1px;
+    }
+    
+    .menu-item.active
+    {
+        background-color: #5ae;
+        color: White;
+    }
+    </style>
+
+</head>
+<body>
+<h1 style='color:black;'>Carnac the Magnificent riddles</h1>
+<p style='color:black;width:700px;'>
+Johnny Carson used to put on a turban and pretend to be a psychic by holding up an envelope to his head, and guessing the answer to the enclosed question (answers written on outside of envelope really so Johnny could read them).  Many of the jokes were racist, sexist, US-centric, or xenophobic, but that was the audience in the 1980s.  I'm Italian so I left some of those in.
+
+<!-- This el gets a full menu of N menu items - left side -->
+<div id="the_menu"></div>
+
+<!-- This el just gets a single content box from one item - right side -->
+<div id="the_content"></div>
+
+<script>
+// pretend this is data from the server or some database or something
+var jsonData = [	
+	{
+		"position": 1,
+		"title": "Over 105 in Los Angeles",
+		"content": "<p> Under the Reagan plan, how old do you have to be to collect Social Security?</p>"
+	},
+	{
+		"position": 2,
+		"title": "Debate",
+		"content": "<p> What do you use to catch de fish?</p>"
+	},
+	{
+		"position": 3,
+		"title": "Baja",
+		"content": "<p>What sound does a sheep make when it laughs?</p>"
+	},
+	{
+		"position": 4,
+		"title": "Walla Walla",
+		"content": "<p>Hey......Tony (Italian accent) What kind uva carpets you got atta you houseah?</p>"
+	},
+];
+
+// your content probably has a nontrivial amount of HTML to make it the way you want.
+// So the render method on the view takes a template and stuffs in data
+var itemTemplate = '\
+  <div class="menu-item" id="item@position">\
+      <a href="#info/@position" class="title">@title</a>\
+  </div>';
+
+
+$(document).ready(function ()
+{
+    // models in BB got named from the MVC, Model View Controller, technique.
+    // Actually each 'model' instance is like one row of a table or one object in a list.
+    var Item = Backbone.Model.extend({
+    });
+
+    // to organize a list of models, use a collection.  Sortof equivalent to a db table, or subset of rows
+    var ItemCollection = Backbone.Collection.extend({
+        model: Item,
+        comparator: function (item)
+        {
+            return item.get("position");
+        }
+    });
+
+    var MenuView = Backbone.View.extend({
+        render: function ()
+        {
+            this.model.each(function mvre(model) {
+              $('#the_menu').append(itemTemplate.replace(/@position/g, model.get('position')).replace(/@title/g, model.get('title')));
+            });
+            return this;
+        }
+    });
+
+    var ContentView = Backbone.View.extend({
+        el: $('#the_content'),
+
+        render: function ()
+        {
+            this.el.html(this.model.get('content'));
+            return this;
+        }
+    });
+
+
+    var NavigationRouter = Backbone.Router.extend({
+        _data: null,
+        _items: null,
+        _view: null,
+
+        routes: {
+            "info/:id": "showInfo",
+            "*actions": "defaultRoute"
+        },
+        initialize: function (options)
+        {
+          this._data = jsonData;
+          this._items = new ItemCollection(jsonData);
+          this._view = new MenuView({ model: this._items });
+          this._view.render();
+          Backbone.history.loadUrl();
+          
+          return this;
+        },
+        defaultRoute: function (actions)
+        {
+            this.showInfo(1);
+        },
+        showInfo: function (id)
+        {
+            var view = new ContentView({ model: this._items.at(id - 1) });
+            $(".active").removeClass("active");
+            $("#item" + id).addClass("active");
+            view.render();
+        }
+    });
+
+    var navigationRouter = new NavigationRouter;
+    Backbone.history.start();
+});
+
+
+</script>
+
+</body>
+</html>
