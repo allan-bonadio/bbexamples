@@ -32,13 +32,17 @@ $(document).ready(function rdy()
   // extend() creates a duplicate of Backbone.View, and attaches the passed variables 
   // to the prototype, so they become inherited instance variables of each constructed instance.
   var ContentView = Backbone.View.extend({
-    el: $(document.body),
+    // The element that you will stuff with html.  Do not set $el directly.  
+    // Do not use id, attributes, className, or tagName despite what it says in the docs - too confusing.
+    // set el to a CSS selector for the element you want; once you make an instance, 
+    // its el points to the actual element, not jQuery wrapped.  $el is not set; go figure.
+    el: 'body',
   
     // this is the code that you write that fills in the view's el with 'data' and html.
     // In this case, the container is the whole body, and the data is a fixed  string.
     render: function ()
     {
-        this.el.html("hello world");
+        $(this.el).html("hello world");
         return this;
     }
   });
@@ -49,7 +53,8 @@ $(document).ready(function rdy()
   // with instance variables attached to the new constructor
   var NavigationRouter = Backbone.Router.extend({
     // routes calls handlers when certain events happen.  In our case, the only event happens when the page
-    // first loads, "*actions".  defaultRoute() will get called when that happens.
+    // first loads, "*actions".  defaultRoute() will get called when that happens to start it all up.
+    // note you must have at least one route otherwise BB falls on its face.
     routes: {
         "*actions": "defaultRoute"
     },

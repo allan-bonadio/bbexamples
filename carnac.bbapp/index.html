@@ -111,6 +111,9 @@ $(document).ready(function ()
     });
 
     var ContentView = Backbone.View.extend({
+        // this view constructor, instead of having a fixed target element, asks BB to make a new detached DIV with the given ID.
+        // Note there will only be one of these at any time otherwise the fixed id is a problem
+        // OK so this guy is breaking all the rules (el should be a node not a jQ) but it works anyway.
         el: $('#the_content'),
 
         render: function ()
