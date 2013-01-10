@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<script src="jquery.js"></script>
+<script src="underscore.js"></script>
+<script src="backbone.js"></script>
+
+<h1>Joan Rivers zingers</h1>
+
+<p>
+Joan Rivers is/was a comedian with a lot of funny jokes.  Much of it is self-deprecating, making fun of her old age, and often joking about other celebrities.  She always talks fast, and her delivery style was very quick, which went well with the jokes - zingers that work with a surprise punchline.  </p>
+
+<script>
+/* This is the simplest Backbone.js program I could write that uses backbone Models.  
+It doesn't use any of the other classes, just models.
+You can see the main purpose is to have a data structure that fires events when one or another field changes value.  The handler for that event frequently updates the screen, although you could alo make it incorporate the new value in a new calculation or something else more complicated with some sort of cascading updating.
+*/
+
+var jokes = [
+"Is Elizabeth Taylor fat? Her favorite food is seconds.",
+"Talk about getting old. I was getting dressed and a peeping tom looked in the window, took a look and pulled down the shade.",
+"Elizabeth Taylor has more chins than the Chinese telephone directory. ",
+"The one thing women don't want to find in their stockings on Christmas morning is their husband.",
+"I hate housework. You make the beds, you wash the dishes and six months later you have to start all over again.",
+"(about Madonna) She's so hairy - when she lifted up her arm I thought it was Tina Turner in her armpit.",
+"I don't exercise. If God wanted me to bend over, he'd have put diamonds on the floor.",
+"A man can sleep around, no questions asked, but if a woman makes nineteen or twenty mistakes she's a tramp. ",
+"I have flabby thighs, but fortunately my stomach covers them. ",
+"I succeeded by saying what everyone else is thinking. ",
+"I told my mother-in-law that my house was her house, and she said, 'Get the hell off my property.' ",
+"The first time I see a jogger smiling, I'll consider it.",
+"I was so ugly that they sent my picture to Ripley's Believe It or Not and he sent it back and said, 'I don't believe it.'",
+"I hate thin people. 'Oh, does the tampon make me look fat?'",
+"My husband killed himself. And it was my fault. We were making love and I took the bag off my head.",
+"My daughter and I are very close. We speak every single day and I call her every day and I say the same thing, 'Pick up, I know you're there.' And she says the same thing back, 'How'd you get this new number?'",
+"My parents hated me. All I ever heard was, 'Why can't you be like your cousin Shelia? Why can't you be like your cousin Shelia?' Shelia had died at birth.",
+"I have no sex appeal. If my husband didn't toss and turn, we'd never have had the kid."
+];
+
+// generate the buttons inline
+for (var j = 0; j < jokes.length; j++) {
+  document.write(" <button id=joke"+ j +">Joke "+ j +"</button>\n");
+}
+</script>
+
+<!-- the box that holds the zinger -->
+<p id=jokeDisplay style='background-color: #cba; padding: 1em;'></p>
+
+<script>
+// a very simple model, basically the same as Backbone.Model, although we pretend to greatness.  
+// As usual for BB, we create our model's constructor first, and only then start making new instances.
+// each model is like a row of a database table, or like a JS object - keys and values.  
+// You can use .get() and .set() on instances.
+// Note that we don't define what fields are in the model, either while making the class for it, 
+// or even the instance constructor.  As with objects, you set whatever you want and you get 
+// whatever you want, free style.
+var JokeModel = Backbone.Model.extend({});
+
+// You can also pass in your initial values for your instance in the constructor, although we don't.
+var model = new JokeModel();
+
+// this is sortof an event handler.  Instead of an event on a DOM element, 
+// this event is on a BB Model object.  If the 'zinger' field in the model changes, this handler gets called.
+model.on('change:zinger', function(model, zinger) {
+  // whever the zinger in the model changes, this will update the screen to the new value of 'zinger'
+  $('#jokeDisplay').html(zinger);
+});
+
+
+
+// runs after the page is set up
+$(document).ready(function rdy() {
+  // ok NOW set the data.  Should show up on the screen instantly.
+  model.set({zinger: 'Click one of the buttons for a Joan Rivers joke.'});
+  
+  // attach DOM event handlers on the buttons to feed each zinger into the model
+  for (var j = 0; j < jokes.length; j++) {
+    $('#joke' + j).click(function c() {
+      // figure out which button by dissecting the ID
+      var jj = this.id.substr(4);
+      model.set({zinger: jokes[jj]});
+    });
+  }
+});
+
+
+
+</script>
+
+
