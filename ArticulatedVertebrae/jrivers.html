@@ -60,6 +60,8 @@ var model = new JokeModel();
 
 // this is sortof an event handler.  Instead of an event on a DOM element, 
 // this event is on a BB Model object.  If the 'zinger' field in the model changes, this handler gets called.
+// there's other kinds of events; and there's other kinds of objects that can have 
+// these event handlers attached to them; most of them are for models
 model.on('change:zinger', function(model, zinger) {
   // whever the zinger in the model changes, this will update the screen to the new value of 'zinger'
   $('#jokeDisplay').html(zinger);
