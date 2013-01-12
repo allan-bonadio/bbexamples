@@ -7,13 +7,16 @@ All of the apps are in the ArticulatedVertebrae directory.  Each BB app has a '.
 
 There are no other files; no .css or .sass or .mustache or any other kind of file: just JavaScript and jQuery and Underscore.js, which Backbone needs to run.
 
-The first example is <b>helloworld</b>; as its name says it's the good old minimal page that uses Backbone.js.
-Totally useless itself, but it shows the bare bare minimum BB stuff you need for every page/panel.  Plus some gotchas.
-It uses backbone's Router and View classes, no others.
+<style>td {padding: 0 1em; }</style>
+<table>
+  <tr><th>program<th>Router?<th>View?<th>Model?<th>Collection?<th>notes
+  <tr><td>justaview<td>.<td>view<td>.<td>.<td>bare minimum BB view
+  <tr><td>helloworld<td>router<td>view<td>.<td>.<td>bare minimum BB stuff you need for every page/panel
+  <tr><td>echo<td>.<td>.<td>model<td>.<td> is a small app using nothing from BB but a Model class.  Not even routers or views!  Everything else done in regular html, js and jQuery.
+  <tr><td>jrivers<td>.<td>.<td>model<td>.<td>
+  <tr><td>carnac<td>router<td>view<td>model<td>collection<td>It's mostly a simplified version of lostsoul's example.
+</table>
 
-<b>jrivers</b> is a small app using nothing from BB but a Model class.  Not even routers or views!  Everything else done in regular html, js and jQuery.
-
-The last example is <b>carnac</b>.  It's mostly a simplified version of lostsoul's example.
 
 The juicy info is in the source comments in the .html files.  I'm assuming that you're a web programmer familiar with current JavaScript, and with jQuery, as I was, too, when I started.
 <a href=http://backbonejs.org>Backbone</a> also uses 
@@ -28,7 +31,7 @@ From the start, I had a problem with it; why do we need all this complexity?
 All of the examples, even the <i>simple</i> ones, seemed to have dozens of files and several other technologies, some that I'd never seen before, often with some sort of server application in whichever language/technolgy the author wrote in.
 These are fine for the project they were intended for; just not good for getting up to speed quickly with Backbone.js.
 
-Meanwhile, Backbone.js, as of the start of 2013, can be described as 'testy', meaning, you have to test after each little change you make to be sure you didn't break anything.  My attempts to start from an empty file and make a BB app were desperate and brutal.  Unless I can type in a 'hello world' program from memory, or set up a trivial example, I don't really believe that I 'know' a system.
+Meanwhile, Backbone.js, as of the start of 2013, can be described as 'testy', meaning, you have to test after each little change you make to be sure you didn't break anything.  My attempts to start from an empty file and make a BB app were all failures.  Unless I can type in a 'hello world' program from memory, or set up a trivial example, I don't really believe that I 'know' a system.
 
 Some of these are based (loosely) on the 'very simple backbone application' by 
 <a href=mailto:lostsoul&#64;beyondtheclouds.net>lostsoul&#64;beyondtheclouds.net</a>.
