@@ -1,20 +1,36 @@
 Articulated Vertebrae
 =====================
 
-### small programs that articulate Backbone.js
+### cut-to-the-chase Backbone.js examples
 
-All of the apps are in the ArticulatedVertebrae directory.  Each BB app has a '.html' file that runs the app; put them anywhere a server serves or you can just drag the file into a browser window.  Make sure the three .js files are in the same directory.  
+All of the apps are in the ArticulatedVertebrae directory.  Each BB app is a single '.html' file that runs some simple app in JavaScript, for edification or amusement.  They should work anywhere; just make sure the three .js files are in the same directory with the same names.  
 
 There are no other files; no .css or .sass or .mustache or any other kind of file: just JavaScript and jQuery and Underscore.js, which Backbone needs to run.
 
-<style>td {padding: 0 1em; }</style>
 <table>
-  <tr><th>program<th>Router?<th>View?<th>Model?<th>Collection?<th>notes
-  <tr><td>justaview<td>.<td>view<td>.<td>.<td>bare minimum BB view
-  <tr><td>helloworld<td>router<td>view<td>.<td>.<td>bare minimum BB stuff you need for every page/panel
-  <tr><td>echo<td>.<td>.<td>model<td>.<td> is a small app using nothing from BB but a Model class.  Not even routers or views!  Everything else done in regular html, js and jQuery.
-  <tr><td>jrivers<td>.<td>.<td>model<td>.<td>
-  <tr><td>carnac<td>router<td>view<td>model<td>collection<td>It's mostly a simplified version of lostsoul's example.
+	<tr><th>program <th>
+		Router? <th>View? <th>Model? <th>Collection? <th>
+		notes
+	
+	<tr><td>justaview<td>
+		.<td>view<td>.<td>.<td>
+		bare minimum 'hello world' program, using a BB view
+		
+	<tr><td>helloworld<td>
+		router<td>view<td>.<td>.<td>
+		bare minimum BB view and router working together
+		
+	<tr><td>echo<td>
+		.<td>.<td>model<td>.<td>
+		a small app using nothing from BB but a Model class.  Not even routers or views!  Everything else done in regular html, js and jQuery.
+		
+	<tr><td>jrivers<td>
+		.<td>.<td>model<td>.<td>
+		a model-only page that's a bit more complex.  and fun.
+		
+	<tr><td>carnac
+		router<td>view<td>model<td>collection<td>
+		It's mostly a simplified version of lostsoul's example app.<td>
 </table>
 
 

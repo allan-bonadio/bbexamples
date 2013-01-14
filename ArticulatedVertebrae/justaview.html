@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<script src="jquery.js"></script>
+<script src="underscore.js"></script>
+<script src="backbone.js"></script>
+<script>
+/* This is the simplest Backbone.js program I could write that works on the screen.  
+It just displays text on the page; something you could get with a 1-line HTML file.  
+So, obviously there must be some other benefit from using backbone.
+
+BB has several other classes, but the View class is meant to control some rectangle on your web page that might be refreshed from some data.  BB is not a graphical framework; it's a data-flow framework, so it lets you construct the HTML anyway you see fit.
+
+Up until recently, your JS made web pages changed by showing and hiding pieces of HTML.
+And you constructed that HTML into the HTML file, with all of the css display properties set to 'none', so you could turn them on later at will.
+
+The backbone approach is, instead, to generate the HTML for whatever you need to show.  Each view has
+an empty element in the HTML that it fills with the generated HTML.  Usually it's easier 
+if your JS fills in some sort of template for the html text, but that's not needed.
+
+*/
+
+$(function rdy()
+{
+  // as per jQuery, this runs after the page is set up, but other pieces 
+  // like images may not have fully downloaded.
+  
+  // You need some existing element on the page that will get filled with the content, that's el.
+  // Note that ContentView is merely the class of the view you're making; keep reading for instantiation.   
+  // extend() creates a duplicate of Backbone.View, and attaches the passed variables 
+  // to the prototype, so they become inherited instance variables of each constructed instance.
+  var ContentView = Backbone.View.extend({
+    // The element that you will stuff with html.  Do not set $el directly; $el seems inconsistently set.  
+    // Do not use id, attributes, className, or tagName despite what it says in the docs - too confusing.
+    // Here while making the constructor, set el to a CSS selector for the element you want.
+    // Once you make an instance, its el instead points to the actual element (not jQuery wrapped). 
+    // yeah i know kindof crazy.
+    el: 'body',
+  
+    // this is the code that you write that fills in the view's el with 'data' and html.
+    // In this case, the container is the whole body, and the data is a fixed  string.
+    render: function ()
+    {
+        $(this.el).html("just a view");
+        return this;
+    }
+  });
+  
+  // create the view, then make it squirt in the html.  Had this been a real program, 
+  // the construction and rendering would happen in some handler triggered by some event.
+  this.view = new ContentView({});          
+  this.view.render();
+  
+  // So at this point you might be wondering what it's good for, especially 
+  // if you have to call render() yourself.  Me too.
+  
+});
+
+</script>
+
+<body>
+</body>

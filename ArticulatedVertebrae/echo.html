@@ -1,0 +1,35 @@
+<script src=jquery.js></script>
+<script src=underscore.js></script>
+<script src=backbone.js></script>
+
+<body>
+
+<p>
+Sometimes the young and beautiful nymph Echo would distract and amuse Zeus' wife, Hera, with long and entertaining stories while Zeus took advantage of the moment to ravish the other mountain nymphs. When Hera discovered the trickery, she was so annoyed she punished the talkative Echo by taking away her voice, except in foolish repetition of another's shouted words. Thus, all Echo could do was repeat the voice of another.  <br>&mdash; <a href=http://en.wikipedia.org/wiki/Echo_(mythology)#History>Wikipedia</a>
+</p>
+
+Say something: <input id=in_box value=Echo style=font-size:18pt>
+<p>You said: <span id=out_box style=white-space:pre;font-size:18pt></span></p>
+
+<script>
+
+var model = new Backbone.Model();
+model.on('change:typed_stuff', function mo(model, typed_stuff) {
+  console.log('got the change event with '+ typed_stuff);
+  $('#out_box').html('`'+ typed_stuff +'`');
+});
+
+$(function () {
+  $('#in_box').keyup(function c() {
+    console.log("key down "+ $('#in_box').val());
+    model.set('typed_stuff', $('#in_box').val());
+  });
+  
+  // start it off
+  model.set('typed_stuff', $('#in_box').val());
+  $('#in_box').select();
+});
+</script>
+
+</body>
+

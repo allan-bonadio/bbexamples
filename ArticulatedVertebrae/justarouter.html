@@ -1,0 +1,59 @@
+<script src="jquery.js" type="text/javascript"></script>
+<script src="underscore.js" type="text/javascript"></script>
+<script src="backbone.js" type="text/javascript"></script>
+    
+<h1>Just a Router <span id=pageNum>1</span></h1>
+<button id=left_button>Left</button>
+<button id=right_button>Right</button>
+
+<script>
+
+
+$(document).ready(function ()
+{
+    var NavigationRouter = Backbone.Router.extend({
+
+        routes: {
+            "nerf": "nerf",
+            ":pageNum": "showPage",
+            "*actions": "defaultRoute"
+        },
+        
+        defaultRoute: function (actions)
+        {
+            this.showPage(1);
+        },
+        
+        nerf: function (pageNum)
+        {
+          alert("nerf");
+        },
+        
+        // sets up the page with new 'data'
+        showPage: function (pageNum)
+        {
+          $('#pageNum').html(pageNum);
+        },
+        
+        // sets up the page with new 'data'
+        leftPage: function (pageNum)
+        {
+          $('#pageNum').html(pageNum);
+        },
+        
+        // sets up the page with new 'data'
+        rightPage: function (pageNum)
+        {
+          $('#pageNum').html(pageNum);
+        }
+    });
+
+    var navigationRouter = new NavigationRouter;
+    Backbone.history.start({root: '/ArticulatedVertebrae/justarouter.html'});
+});
+
+
+</script>
+
+</body>
+</html>
