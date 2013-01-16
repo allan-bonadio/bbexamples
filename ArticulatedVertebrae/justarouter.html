@@ -2,55 +2,64 @@
 <script src="underscore.js" type="text/javascript"></script>
 <script src="backbone.js" type="text/javascript"></script>
     
-<h1>Just a Router <span id=pageNum>1</span></h1>
-<button id=left_button>Left</button>
-<button id=right_button>Right</button>
+<h1>Just a Router</h1>
+
+With a Backbone.js <b>router</b>, you can have a different URL for each state of your app.  
+Because the state is recorded in the URL 'fragment' after #, 
+humans can bookmark them and use Back and Forward to navigate between them without page loads.
+
+<h3 id=lineDisplay></h3>
+<p>
+<script>
+var song = [0, "1 Partridge in a Pear Tree", "2 Turtle Doves", "3 French Hens",
+            "4 Calling Birds", "5 Golden Rings", "6 Geese a Laying",
+            "7 Swans a Swimming", "8 Maids a Milking", "9 Ladies Dancing",
+            "10 Lords a Leaping", "11 Pipers Piping", "12 Drummers Drumming"];
+
+  // you can make links for each state of your webapp page by adding # and some 
+  // identifier or text for the state.  Here we're just using integers, 
+  // making twelve links to each song line, each like <a href=#5> to just change 
+  // the hash field of the url, instead of triggering a page load.
+  for (var n = 1; n < song.length; n++)
+    document.write('<a href=#'+ n +'>'+ n +'</a> &nbsp;');
+</script>
+</p>
 
 <script>
 
+var router;
 
 $(document).ready(function ()
 {
-    var NavigationRouter = Backbone.Router.extend({
-
+    var XmasRouter = Backbone.Router.extend({
         routes: {
-            "nerf": "nerf",
-            ":pageNum": "showPage",
-            "*actions": "defaultRoute"
+            // this route gets the state integer (actually any string) after the # and calls showLine() with it
+            ':line': 'showLine',
+            
+            // this route is just the first one BB will call on page startup
+            '*actions': 'defaultRoute'
         },
         
+        // page startup
         defaultRoute: function (actions)
         {
-            this.showPage(1);
+            this.showLine(1);
         },
         
-        nerf: function (pageNum)
+        // sets up the page with new lineNum state string
+        showLine: function (lineNum)
         {
-          alert("nerf");
-        },
-        
-        // sets up the page with new 'data'
-        showPage: function (pageNum)
-        {
-          $('#pageNum').html(pageNum);
-        },
-        
-        // sets up the page with new 'data'
-        leftPage: function (pageNum)
-        {
-          $('#pageNum').html(pageNum);
-        },
-        
-        // sets up the page with new 'data'
-        rightPage: function (pageNum)
-        {
-          $('#pageNum').html(pageNum);
+          this.curLine = lineNum;
+          if (lineNum >= song.length)
+            lineNum = song.length - 1;
+          $('#lineDisplay').html(song[lineNum]);
         }
     });
 
-    var navigationRouter = new NavigationRouter;
-    Backbone.history.start({root: '/ArticulatedVertebrae/justarouter.html'});
+    router = new XmasRouter;
+    Backbone.history.start();
 });
+
 
 
 </script>

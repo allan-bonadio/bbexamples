@@ -10,7 +10,7 @@
     #the_menu
     {
         float: left;
-        width: 202px;
+        width: 294px;
         color: White;
     }
     #the_content
@@ -26,9 +26,9 @@
     .menu-item
     {
         border: 1px solid #ddd;
-        width: 178px;
+        width: 270px;
         height: 18px;
-        padding: 10px;
+        padding: 4px;
         margin-bottom: -1px;
     }
     
@@ -43,7 +43,7 @@
 <body>
 <h1 style='color:black;'>Carnac the Magnificent riddles</h1>
 <p style='color:black;width:700px;'>
-Johnny Carson used to put on a turban and pretend to be a psychic by holding up an envelope to his head, and guessing the answer to the enclosed question (answers written on outside of envelope really so Johnny could read them).  Many of the jokes were racist, sexist, US-centric, or xenophobic, but that was the audience in the 1980s.  I'm Italian so I left some of those in.
+Johnny Carson used to put on a turban and pretend to be a psychic by holding up an envelope to his head, and guessing the answer to the enclosed question (answers written on outside of envelope really so Johnny could read them).  Many of the jokes were racist, sexist, US-centric, or xenophobic, but that was the audience in the 1980s.  I'm Italian so I left one of those in.
 
 <!-- This el gets a full menu of N menu items - left side -->
 <div id="the_menu"></div>
@@ -54,33 +54,30 @@ Johnny Carson used to put on a turban and pretend to be a psychic by holding up 
 <script>
 // pretend this is data from the server or some database or something
 var jsonData = [	
-	{
-		"position": 1,
-		"title": "Over 105 in Los Angeles",
-		"content": "<p> Under the Reagan plan, how old do you have to be to collect Social Security?</p>"
-	},
-	{
-		"position": 2,
-		"title": "Debate",
-		"content": "<p> What do you use to catch de fish?</p>"
-	},
-	{
-		"position": 3,
-		"title": "Baja",
-		"content": "<p>What sound does a sheep make when it laughs?</p>"
-	},
-	{
-		"position": 4,
-		"title": "Walla Walla",
-		"content": "<p>Hey......Tony (Italian accent) What kind uva carpets you got atta you houseah?</p>"
-	},
+	{title: "Over 105 in Los Angeles", answer: "Under the Reagan plan, how old do you have to be to collect Social Security?</p>"},
+  {title: "A, B, C, D, E, F, G.",answer: "What were some of the earlier forms of Preparation H?"},
+  {title: "Until he gets caught.",answer: "How long does a United States Congressman serve?"},
+  {title: "Head and shoulders.",answer: "What do you see if you open the trunk of the Godfather's car?"},
+  {title: "Crabgrass.",answer: "What do crabs get high on?"},
+  {title: "Supervisor.", answer: "What does Clark Kent wear to keep the sun out of his eyes?"},
+  {title: "Touchback.", answer: "What's the smart thing to do if a Dallas Cowgirl touches you?"},
+	{title: "Walla Walla", answer: "Hey......Tony (Italian accent) What kind uva carpets you got atta you houseah?"},
+  {title: "The big ten.", answer: "Describe the five finalists in the Miss Universe contest."},
+  {title: "Disjoint.", answer: "What was dat hippie smoking?"},
+  {title: "Rough cut.", answer: "What you do get from a near-sighted rabbi?"},
+  {title: "Ninety-nine and nine-tenths.", answer: "What price will gas be if it's under a dollar?"},
+  {title: "Once is not enough.", answer: "What's the major cause of divorce?"},
+  {title: "A nine foot base with two feet of powder.", answer: "Describe Mick Jagger's nose."},
+  {title: "Roots.", answer: "What is it that Ronald Reagan keeps trying to hide?"},
+  {title: "Ben Gay.", answer: "Why didn't Mrs. Franklin have any kids?"},
+  {title: "Miss Wisconsin", answer: "What won't you do after you leave Milwaukee?"},
 ];
 
 // your content probably has a nontrivial amount of HTML to make it the way you want.
 // So the render method on the view takes a template and stuffs in data
 var itemTemplate = '\
   <div class="menu-item" id="item@position">\
-      <a href="#info/@position" class="title">@title</a>\
+      <a href="#carnac/@position" class="title">@title</a>\
   </div>';
 
 
@@ -96,15 +93,15 @@ $(document).ready(function ()
         model: Item,
         comparator: function (item)
         {
-            return item.get("position");
+            return item.get("title");
         }
     });
 
     var MenuView = Backbone.View.extend({
         render: function ()
         {
-            this.model.each(function mvre(model) {
-              $('#the_menu').append(itemTemplate.replace(/@position/g, model.get('position')).replace(/@title/g, model.get('title')));
+            this.model.each(function mvre(model, j) {
+              $('#the_menu').append(itemTemplate.replace(/@position/g, j).replace(/@title/g, model.get('title')));
             });
             return this;
         }
@@ -118,7 +115,7 @@ $(document).ready(function ()
 
         render: function ()
         {
-            this.el.html(this.model.get('content'));
+            $(this.el).html(this.model.get('answer'));
             return this;
         }
     });
@@ -130,7 +127,7 @@ $(document).ready(function ()
         _view: null,
 
         routes: {
-            "info/:id": "showInfo",
+            "carnac/:id": "showCarnac",
             "*actions": "defaultRoute"
         },
         initialize: function (options)
@@ -139,17 +136,16 @@ $(document).ready(function ()
           this._items = new ItemCollection(jsonData);
           this._view = new MenuView({ model: this._items });
           this._view.render();
-          Backbone.history.loadUrl();
           
           return this;
         },
         defaultRoute: function (actions)
         {
-            this.showInfo(1);
+            this.showCarnac(0);
         },
-        showInfo: function (id)
+        showCarnac: function (id)
         {
-            var view = new ContentView({ model: this._items.at(id - 1) });
+            var view = new ContentView({ model: this._items.at(id) });
             $(".active").removeClass("active");
             $("#item" + id).addClass("active");
             view.render();
@@ -157,7 +153,16 @@ $(document).ready(function ()
     });
 
     var navigationRouter = new NavigationRouter;
-    Backbone.history.start();
+    Backbone.history.start({
+      root: location.pathname,
+      // not entirely clear what this does.  Still works without it!
+      
+      pushState: false});
+      // pushState means to use the new history.pushState() method in HTML5
+      // but every time I turn it on, the page gets weird.
+    
+    // make sure to call loadUrl() after start, or it'll crash.
+    Backbone.history.loadUrl();
 });
 
 

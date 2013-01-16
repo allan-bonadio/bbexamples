@@ -1,11 +1,11 @@
 Articulated Vertebrae
 =====================
 
-### cut-to-the-chase Backbone.js examples
+### minimalist Backbone.js examples
 
-All of the apps are in the ArticulatedVertebrae directory.  Each BB app is a single '.html' file that runs some simple app in JavaScript, for edification or amusement.  They should work anywhere; just make sure the three .js files are in the same directory with the same names.  
+All of these apps are in the ArticulatedVertebrae directory.  Each BB app is a single '.html' file that runs some simple app in JavaScript, for edification or amusement.  They should work anywhere; just make sure the three .js files are in the same directory with the same names.  
 
-There are no other files; no .css or .sass or .mustache or any other kind of file: just JavaScript and jQuery and Underscore.js, which Backbone needs to run.
+There are no other files; no .css or .sass or .mustache or any other kind of file: just JavaScript and jQuery and Underscore.js, which Backbone needs to run.  There is no AJAX. If you're looking for 'Ajax Applications', really you're talking about javascript web applications, javascript enabled DHTML web pages, Web 2.0 pages, all sortof the same thing.  And they don't need AJAX to be web applications, although 90% of the interesting ones do.
 
 <table>
 	<tr><th>program <th>
@@ -28,9 +28,9 @@ There are no other files; no .css or .sass or .mustache or any other kind of fil
 		.<td>.<td>model<td>.<td>
 		a model-only page that's a bit more complex.  and fun.
 		
-	<tr><td>carnac
+	<tr><td>carnac<td>
 		router<td>view<td>model<td>collection<td>
-		It's mostly a simplified version of lostsoul's example app.<td>
+		It's mostly a simplified version of lostsoul's example app.  Took out Ajax and the need for a server.  Also took out jQuery.template and the nocss thing.
 </table>
 
 
