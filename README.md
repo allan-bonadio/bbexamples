@@ -16,6 +16,10 @@ There are no other files; no .css or .sass or .mustache or any other kind of fil
 		.<td>view<td>.<td>.<td>
 		bare minimum 'hello world' program, using a BB view
 		
+	<tr><td>justarouter<td>
+		.<td>view<td>.<td>.<td>
+		page showing #fragment inner pages, using a BB router.  and colors.
+		
 	<tr><td>helloworld<td>
 		router<td>view<td>.<td>.<td>
 		bare minimum BB view and router working together

@@ -1,16 +1,38 @@
 <script src="jquery.js" type="text/javascript"></script>
 <script src="underscore.js" type="text/javascript"></script>
 <script src="backbone.js" type="text/javascript"></script>
-    
-<h1>Just a Router <span id=pageNum>1</span></h1>
-<button id=left_button>Left</button>
-<button id=right_button>Right</button>
+
+<style>
+	a {width: 2em; padding: 0.2em 2em; margin: 0.1em; color: #ccc; background-color: #444; }
+	#linkList a {display: block; float:left; font-size: 0.7em; }
+	p {display: block; }
+</style>
+
+<section style='text-align: center; margin-top: 100px; font-size: 24px;'>
+	<p style='font-size:140%;'>Just a Router, page <span id=pageNum>Um...</span></p>
+	<p style='font-size: 70%; padding: 0 20%;'>
+		Each #number in the URL leads to a (supposedly) different page.  The user can go back and forward as if they were actual distinct HTML pages even though they vary in just the #fragment.   Or you can just change the url by hand.  Or go ahead and use the Back and Forward buttons on the browser, it all works.
+	</p>
+	<p>
+		<a id=leftButton href=#um>&lt;&lt; go back to page <span id=leftButtonNum>um...</span></a>
+		<a id=rightButton href=#um>go ahead to page <span id=rightButtonNum>Um.......</span> &gt;&gt;</a>
+	</p>
+	<p>
+		<a href=#0>go home to page 0</a>
+	</p>
+	<br>
+	previously visited pages
+	<br>
+	<p id=linkList></p>
+</section>
 
 <script>
 
 
 $(document).ready(function ()
 {
+	var linkList = [];
+	
     var NavigationRouter = Backbone.Router.extend({
 
         routes: {
@@ -19,33 +41,41 @@ $(document).ready(function ()
             "*actions": "defaultRoute"
         },
         
-        defaultRoute: function (actions)
+        defaultRoute: function dr(actions)
         {
             this.showPage(1);
         },
         
-        nerf: function (pageNum)
+        // 'create' the page by putting current page number in the title
+        showPage: function sp(pageNum)
         {
-          alert("nerf");
+			pageNum = Number(pageNum) || 0;  // not a string, not a nan
+
+			$('#pageNum').html(pageNum);
+			
+			$('#leftButtonNum').html(pageNum-1);
+			$('#leftButton').attr('href', '#' + (pageNum-1));
+			
+			$('#rightButtonNum').html(pageNum+1);
+			$('#rightButton').attr('href', '#' + (pageNum+1));
+          
+			// really ! we are different pages.  we even look different.
+			var col = '#';
+			col += (pageNum & 1) ? '8' : 'd';
+			col += (pageNum & 8) ? '0' : 'f';
+			col += (pageNum & 2) ? '7' : 'c';
+			col += (pageNum & 16) ? '0' : 'f';
+			col += (pageNum & 4) ? '9' : 'e';
+			col += (pageNum & 32) ? '0' : 'f';
+			$('body').css('background-color', col);
+
+			if (!linkList[pageNum]) {
+				$('#linkList').append('<a style=color:'+ col +' href=#'+ pageNum +'>#'+ pageNum +'</a>');
+				linkList[pageNum] = true;
+			}
+			
         },
         
-        // sets up the page with new 'data'
-        showPage: function (pageNum)
-        {
-          $('#pageNum').html(pageNum);
-        },
-        
-        // sets up the page with new 'data'
-        leftPage: function (pageNum)
-        {
-          $('#pageNum').html(pageNum + 1);
-        },
-        
-        // sets up the page with new 'data'
-        rightPage: function (pageNum)
-        {
-          $('#pageNum').html(pageNum);
-        }
     });
 
     var navigationRouter = new NavigationRouter;
