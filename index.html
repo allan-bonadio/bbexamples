@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Articulated Vertebrae</title>
+		<meta charset='utf-8'>
+		<meta name="description" content="bbexamples - Some example programs I wrote (adapted) for backbone.js" />
+		<style>
+			body { font-family: verdana,helvetica,sans-serif; color: #004;
+				background: linear-gradient(30deg, #eff, #eef, #fef); }
+			td, th { padding: .3em; }
+			th { font-size: 70%; color: #eef; background-color: #004; }
+		</style>
+	</head>
+
+
+	<body>
+		<article>
+
+			<h1>Articulated Vertebrae</h1>
+
+			<h3>minimalist Backbone.js examples</h3>
+
+			<p>These are different Backbone.js apps I wrote, for educational purposes.</p>
+
+			<table>
+				<tr>
+					<th>program </th>
+					<th>Router? </th>
+					<th>View? </th>
+					<th>Model? </th>
+					<th>Collection? </th>
+					<th>notes</th>
+				</tr>
+				<tr>
+					<td><a href=ArticulatedVertebrae/justaview.html>justaview</a></td>
+					<td>.</td>
+					<td>view</td>
+					<td>.</td>
+					<td>.</td>
+					<td>bare minimum 'hello world' program, using a BB view</td>
+				</tr>
+				<tr>
+					<td><a href=ArticulatedVertebrae/justarouter.html>justarouter</a></td>
+					<td>.</td>
+					<td>view</td>
+					<td>.</td>
+					<td>.</td>
+					<td>page showing #fragment inner pages, using a BB router.  and colors.</td>
+				</tr>
+				<tr>
+					<td><a href=ArticulatedVertebrae/helloworld.html>helloworld</a></td>
+					<td>router</td>
+					<td>view</td>
+					<td>.</td>
+					<td>.</td>
+					<td>bare minimum BB view and router working together</td>
+				</tr>
+				<tr>
+					<td><a href=ArticulatedVertebrae/echo.html>echo</a></td>
+					<td>.</td>
+					<td>.</td>
+					<td>model</td>
+					<td>.</td>
+					<td>a small app using nothing from BB but a Model class.  Not even routers or views!  Everything else done in regular html, js and jQuery.</td>
+				</tr>
+				<tr>
+					<td><a href=ArticulatedVertebrae/jrivers.html>jrivers</a></td>
+					<td>.</td>
+					<td>.</td>
+					<td>model</td>
+					<td>.</td>
+					<td>a model-only page that's a bit more complex.  and fun.</td>
+				</tr>
+				<tr>
+					<td><a href=ArticulatedVertebrae/carnac.html>carnac</a></td>
+					<td>router</td>
+					<td>view</td>
+					<td>model</td>
+					<td>collection</td>
+					<td>It's mostly a simplified version of lostsoul's example app.  Took out Ajax and the need for a server.  Also took out jQuery.template and the nocss thing.
+					</td>
+				</tr>
+			</table>
+
+			<p>The juicy info is in the source comments in the .html files.  I'm assuming that you're a web programmer familiar with current JavaScript, and with jQuery, as I was, too, when I started.
+			<a href="http://backbonejs.org">Backbone</a> also uses 
+			<a href="/allan-bonadio/bbexamples/blob/master/underscore.js">underscore.js</a> .  </p>
+
+			<p>These programs are also somewhat rough - for instance, attributes without quotes, &lt;html&gt; tags omitted, all tricks you can get away with on all browsers, although it's considered sloppy.  This was done to simplify the files and avoid distractions.  You can copy my bad habits or not.</p>
+
+			<p>These examples came about because I had to learn Backbone.js for my job.
+			From the start, I had a problem with it; why do we need all this complexity?
+			All of the examples, even the <i>simple</i> ones, seemed to have dozens of files and several other technologies, some that I'd never seen before, often with some sort of server application in whichever language/technolgy the author wrote in.
+			These are fine for the project they were intended for; just not good for getting up to speed quickly with Backbone.js.</p>
+
+			<p>Meanwhile, Backbone.js, as of the start of 2013, can be described as 'testy', meaning, you have to test after each little change you make to be sure you didn't break anything.  My attempts to start from an empty file and make a BB app were all failures.  Unless I can type in a 'hello world' program from memory, or set up a trivial example, I don't really believe that I 'know' a system.</p>
+
+			<p>Some of these are based (loosely) on the 'very simple backbone application' by 
+			<a href="mailto:lostsoul@beyondtheclouds.net">lostsoul@beyondtheclouds.net</a>.
+			Indeed, I made it simpler.  But without lostsoul, I would have been a lost soul as most of my attempts to write BB scripts from scratch did nothing.</p>
+		</article>
+
+	</body>
+</html>
+
